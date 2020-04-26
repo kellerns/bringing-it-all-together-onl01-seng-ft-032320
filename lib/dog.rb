@@ -31,7 +31,8 @@ class Dog
     sql = <<-SQL
     INSERT INTO dogs(name, breed) VALUES (?, ?)
     SQL
-    DB[:conn].execute(sql, name, breed)
+    dog = DB[:conn].execute(sql, name, breed)
+    dog
   end
 
   def self.create
