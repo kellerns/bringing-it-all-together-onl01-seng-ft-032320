@@ -28,7 +28,6 @@ class Dog
   end
 
   def save
-    def save
     if self.id
       self.update
     else
@@ -40,7 +39,7 @@ class Dog
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
     end
   end
-  end
+
 
   def self.create(name, breed)
     dog = Student.new(name, breed)
@@ -48,9 +47,22 @@ class Dog
     dog
   end
 
+  def self.new_from_db(row)
+    new_dog = self.new(row[1], row[2], row[0])
+    new_dog
+  end
 
+  def find_by_id(dog_id)
+    sql = <<-SQL
+      SELECT *
+      FROM dogs
+      WHERE id = ?
+      LIMIT 1
+    SQL
 
-
-
+    DB[:conn].execute(sql, dog_id).map do |row|
+      self.new_from_db(row)
+    end.first
+  end
 
 end
