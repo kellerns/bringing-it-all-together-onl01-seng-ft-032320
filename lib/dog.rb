@@ -93,7 +93,7 @@ class Dog
       LIMIT 1
     SQL
 
-    found_dog = DB[:conn].execute(sql,name)
+    found_dog = DB[:conn].execute(sql, dog_name)
     self.new_from_db(found_dog[0])
   end
 
