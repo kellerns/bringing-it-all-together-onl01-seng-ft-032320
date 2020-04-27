@@ -53,11 +53,12 @@ class Dog
     self.new(dog_hash)
   end
 
-  def find_by_id(dog_id)
+  def self.find_by_id(dog_id)
     sql = <<-SQL
       SELECT *
       FROM dogs
       WHERE id = ?
+      LIMIT 1
     SQL
 
     DB[:conn].execute(sql, dog_id).map do |row|
