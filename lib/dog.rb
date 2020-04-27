@@ -85,16 +85,28 @@ class Dog
     new_dog
   end
 
-  def self.find_by_name(dog_name)
-    sql = <<-SQL
-      SELECT *
-      FROM dogs
-      WHERE name = ?
-    SQL
+  # def self.find_by_name(dog_name)
+  #   sql = <<-SQL
+  #     SELECT *
+  #     FROM dogs
+  #     WHERE name = ?
+  #   SQL
+  #
+  #   found_dog = DB[:conn].execute(sql, name)
+  #   self.new_from_db(found_dog[0])
+  # end
 
-    found_dog = DB[:conn].execute(sql, name)
-    self.new_from_db(found_dog[0])
-  end
+  def self.find_by_name(name)
+        sql = <<-SQL
+            SELECT *
+            FROM dogs
+            WHERE name = ?
+            LIMIT 1
+        SQL
+
+        new_dog = DB[:conn].execute(sql,name)
+        self.new_from_db(new_dog[0])
+    end
 
   def update
     sql = <<-SQL
