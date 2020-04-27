@@ -92,9 +92,9 @@ class Dog
       WHERE name = ?
     SQL
 
-    DB[:conn].execute(sql, name).map do |row|
-      self.new_from_db(row)
-    end.first
+    found_dog = DB[:conn].execute(sql, name)
+    self.new_from_db(found_dog[0])
+    
   end
 
   def update
