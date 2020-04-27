@@ -94,7 +94,6 @@ class Dog
 
     found_dog = DB[:conn].execute(sql, name)
     self.new_from_db(found_dog[0])
-
   end
 
   def update
